@@ -1,0 +1,159 @@
+<html>
+
+<title>Avoid Covid</title>
+
+<!-- JS -->
+<!-- <script src='scripts/jquery.min.js'></script>
+<script src='scripts/page.js'></script> -->
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="style/index.css">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+<!-- HTML -->
+
+<body>
+    <div class='outer-container'>
+        <div class='game-window'>
+
+            <!-- Main Menu -->
+            <div id="mainMenu">
+                <div>
+                    <div class='covid_header'>Covid Comets</div>
+                    <img class='front_page' src='src/frontpage_background.jpg' />
+                </div>
+
+                <span id="menu_button">
+                    <div class='button1' onclick="showTutorial()">
+                        Play game!
+                    </div>
+
+                    <div class='button2' onclick="showSetting()">
+                        Settings
+                    </div>
+                </span>
+            </div>
+
+
+
+            <!-- Settings -->
+            <div class="setting" style="display:none">
+                <div class="setting_name">
+                    Settings
+                </div>
+                <div class="slidecontainer" id="volume_val">
+                    <span>Volume: </span>
+                    <output id="rangevalue">50</output>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRangeVol">
+
+                </div>
+
+
+                <div>
+                    Difficulty
+                </div>
+
+                <div class='Option_button'>
+                    <div class='Easy_button' onclick="setbroder('Easy_button')">
+                        Easy
+                    </div>
+                    <div class='Normal_button' onclick="setbroder('Normal_button')">
+                        Normal
+                    </div>
+                    <div class='Hard_button' onclick="setbroder('Hard_button')">
+                        Hard
+                    </div>
+
+                </div>
+                <div class='Close_button'>
+                    Close
+                </div>
+
+            </div>
+
+
+            <!-- Tutorial -->
+            <div class="Tutorial">
+                <div>How to Play</div>
+                <div>Avoid COVID particles!</div>
+                <img src="src/covidstriod.png" />
+                <div>Collect masks and vaccines!
+                    <br> Gain as many points as possible!
+                </div>
+                <img src="src/mask.gif" />
+                <img src="src/vacc.gif" />
+                <br>
+                <button class="button_Start" onclick="ShowGame()">Start</button>
+            </div>
+
+            <!-- Actual Game -->
+            <div id="actual_game">
+                <div class="asteroidSection">
+                    <div class="curAstroid"> </div>
+                </div>
+
+                <div class="ready_page">
+                    Get Ready
+                    <div> <img src="src/arrowkeys.png" />
+                    </div>
+                    <div>Use arrow keys to move.</div>
+                </div>
+
+                <div class="play_game">
+                    <div id="player">
+                        <span> 
+                            <img id="player_face" src="src/player/player.gif" />
+                        </span>
+
+
+                        <!-- 
+                        <span class="player_touched"> 
+                            <img src="src/covidstriod.png" />
+                        </span> -->
+
+                    </div>
+                    <!-- <span>
+                        <img id="maskInstance" src="src/mask.gif" />
+                    </span> -->
+                    <span>
+                        <img id="vaccInstance" src="src/vacc.gif" />
+                    </span>
+                </div>
+
+
+
+
+                <div id="game_right_section">
+                    <div id="scoreword">
+                        SCORE
+                        <div id="score_num">0</div>
+                    </div>
+                    <div id="covid_danger">COVID DANGER
+                        <div id="covid_danger_num">20</div>
+                    </div>
+                    <div id="level">LEVEL
+                        <div id="covid_level">1</div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- end game-window -->
+        <div id="endGameWindow">
+            <div>
+                <div>GAME OVER!</div>
+                <div>YOU HAVE TO QUARANTINE!</div>
+                <div id="score_end">0</div>
+                <button id='startover' onclick="showMain()">Start Over</button>
+            </div>
+        </div>
+    </div>
+    <!-- end outer-container -->
+</body>
+
+<script src='scripts/jquery.min.js'></script>
+<script src='scripts/page.js'></script>
+
+</html>
