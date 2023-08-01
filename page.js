@@ -54,8 +54,6 @@ var KEYS = {
 
 //Game difficulty
 var difficulty = 'Normal';
-//测试用，一会要改！
-var Spawn_rate = 800;
 var virus_speed = 3; //px
 var currVirusX = 0;
 var currVirusY = 0;
@@ -192,32 +190,6 @@ function reset_score_board() {
     console.log("reset_score_board");
 }
 
-function ShowGame() {
-    reset_score_board();
-
-    $('#actual_game').show();
-    $('.Tutorial').hide();
-    $('.play_game').hide();
-    $('#endGameWindow').hide();
-    //set page time out
-    var readyPage = $(".ready_page");
-    readyPage.show();
-
-    // clear_virus_helper();
-    console.log("show Game!");
-
-
-    setTimeout(() => {
-        ready_page_disappear();
-    }, 3000);
-
-    set_spawn_speed_virus();
-    //start game
-}
-
-//researt
-//之前页面没有刷新！
-//when click start over
 function showMain() {
     $('#endGameWindow').hide();
     $("#mainMenu").show();
@@ -228,7 +200,6 @@ function showMain() {
 }
 
 
-//病毒出现
 function fireVirus() {
     console.log('Firing covid...');
     // ADD CODE HERE TO MAKE ROCKETS AND FIRE THEM
@@ -329,8 +300,7 @@ function fireVirus() {
     // console.log(currentVirusList);
     virus_interval_status.push(curr_virus_interval);
 }
-//口罩出现
-//物体的速度有问题！！！！
+
 function show_mask() {
     console.log("mask show")
 
@@ -371,7 +341,7 @@ function show_mask() {
     }, maskOccurrence);
 }
 
-//疫苗出现
+
 function show_vaccine() {
     var vaccInstance = $("#vaccInstance");
     vaccInstance.hide();
@@ -394,7 +364,7 @@ function show_vaccine() {
     }, vaccineOccurrence);
 }
 
-//口罩和人的交互
+
 function interacte_mask_vac() {
     // var player = $('#player');
     var personX = parseInt(player.css("left"));
@@ -437,39 +407,8 @@ function interacte_mask_vac() {
 }
 
 
-//结束
-function ShowEndPage() {
-    console.log("show end page");
 
 
-    //hide the current game window
-    $("#actual_game").hide();
-
-    //show the end window button
-
-    //ceshi
-    $('#mainMenu').show();
-
-    $('#menu_button').hide();
-
-    // console.log("show en")
-    $("#endGameWindow").show();
-
-    $('#score_end').text(Current_score);
-    console.log("score end: ", Current_score);
-    clear_Interval_helper();
-    clear_virus_helper();
-
-
-    //reset
-    // Current_score = 0;
-    // covid_danger = 0;
-    // clearInterval(virus_interval_status);
-
-
-}
-
-//记录分数
 function update_score() {
     score = $("#score_num");
     score_interval_status = setInterval(() => {
@@ -489,14 +428,7 @@ function update_score() {
 // ==============================================
 // =========== Utility Functions Here ===========
 // ==============================================
-function clear_virus_helper() {
-    console.log("enter clear virus helper function");
-    virus_interval_status.forEach(virus_interval => {
-        clearInterval(virus_interval);
-    });
-    virus_interval_status = [];
-    console.log("after clear virus helper()------", virus_interval_status);
-}
+
 
 function clear_Interval_helper() {
     clearInterval(score_interval_status);
@@ -525,138 +457,6 @@ function setbroder(className) {
     // console.log("set >>>>>>>>")
 }
 
-function setDirection() {
-
-    if (touched == false) {
-        if (LEFT) {
-            // console.log("moving left");
-            var newPos = parseInt(player.css("left")) - PERSON_SPEED;
-            if (newPos < 0) {
-                newPos = 0;
-            }
-            player.css("left", newPos);
-        } else if (RIGHT) {
-            // console.log("moving right");
-
-            // ADD CODE HERE TO MOVE SPACESHIP TO THE RIGHT
-            var newPos = parseInt(player.css("left")) + PERSON_SPEED;
-            if (newPos > maxPersonPosX) {
-                newPos = maxPersonPosX;
-            }
-            player.css("left", newPos);
-        }
-
-        if (UP) {
-            // console.log("moving up");
-            // ADD CODE HERE TO MOVE SPACESHIP UP
-            var newPos = parseInt(player.css("top")) - PERSON_SPEED;
-            if (newPos < 0) {
-                newPos = 0;
-            }
-            player.css("top", newPos);
-        } else if (DOWN) {
-            // console.log("moving down");
-            var newPos = parseInt(player.css("top")) + PERSON_SPEED;
-            if (newPos > maxPersonPosY) {
-                newPos = maxPersonPosY;
-            }
-            player.css("top", newPos);
-        }
-
-
-        interacte_mask_vac();
-    }
-
-}
-
-function whichImgPlayer() {
-    var playernow = $("#player_face");
-    if (touched) {
-        if (masked) {
-
-            masked = false;
-            touched = false;
-            console.log("inside of 175!");
-            playernow.attr('src', 'src/player/player.gif');
-
-
-        } else {
-
-            playernow.attr('src', 'src/player/player_touched.gif');
-            console.log("touch and show face 581");
-            clear_Interval_helper();
-            if (endGame == false) {
-                sound.die.volume = volume;
-                console.log("volume; ", volume);
-                sound.die.play();
-                endGame = true;
-            }
-
-
-            console.log("virus_interval_status", virus_interval_status);
-
-            // clear_Interval_helper();
-            setTimeout(() => {
-                ShowEndPage()
-            }, 2000);
-        }
-        // console.log("old touched 175");
-
-    } else {
-        if (masked == false) {
-            // console.log("do not has mask now");
-            if (LEFT) {
-                playernow.attr('src', 'src/player/player_left.gif');
-
-            } else if (RIGHT) {
-                playernow.attr('src', 'src/player/player_right.gif');
-
-            } else if (UP) {
-                // console.log("up face")
-                playernow.attr('src', 'src/player/player_up.gif');
-
-
-            } else if (DOWN) {
-                // console.log("down face")
-                playernow.attr('src', 'src/player/player_down.gif');
-            }
-            //idle
-            else {
-                // console.log("idle face")
-                playernow.attr('src', 'src/player/player.gif');
-            }
-
-        } else {
-            console.log("has mask now");
-            if (LEFT) {
-                playernow.attr('src', 'src/player/player_masked_left.gif');
-
-            } else if (RIGHT) {
-                playernow.attr('src', 'src/player/player_masked_right.gif');
-
-            } else if (UP) {
-                // console.log("up face")
-                playernow.attr('src', 'src/player/player_masked_up.gif');
-
-
-            } else if (DOWN) {
-                // console.log("down face")
-                playernow.attr('src', 'src/player/player_masked_down.gif');
-
-
-
-            }
-            //idle
-            else {
-                // console.log("idle face")
-                playernow.attr('src', 'src/player/player_masked.gif');
-
-
-            }
-
-        }
-    }
-}
 
 function set_spawn_speed_virus() {
 
